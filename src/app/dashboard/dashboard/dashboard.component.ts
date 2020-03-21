@@ -95,9 +95,9 @@ export class DashboardComponent implements OnInit {
 
   private mapGrowthChart(result: DailyStatistic, index: number): number {
     if (index === 0) {
-      return 100;
+      return 0;
     } else {
-      return +((this.results[index - 1].confirmed / result.confirmed) * 100).toFixed(2);
+      return +((result.confirmed / this.results[index - 1].confirmed - 1) * 100).toFixed(2);
     }
   }
 
