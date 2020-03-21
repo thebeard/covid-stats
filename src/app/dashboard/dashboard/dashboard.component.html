@@ -1,0 +1,79 @@
+<h1>South Africa</h1>
+
+<mat-card id="summary">
+  <div>
+    <dl>
+      <dt>Confirmed</dt>
+      <dd>{{ result.confirmed }}</dd>
+      <dt>Active</dt>
+      <dd>{{ result.confirmed - result.recovered - result.deaths }}</dd>
+    </dl>
+    <dl>
+      <dt>Deaths</dt>
+      <dd>{{ result.deaths }}</dd>
+      <dt>Recovered</dt>
+      <dd>{{ result.recovered }}</dd>
+    </dl>
+  </div>
+</mat-card>
+
+<div class="card-row">
+  <mat-card>
+    <h3>Without test stats</h3>
+    <canvas
+      baseChart
+      [datasets]="nationalSummaryChartData"
+      [labels]="historyLabels"
+      [options]="lineChartOptions"
+      [colors]="lineChartColors"
+      [legend]="lineChartLegend"
+      [chartType]="lineChartType"
+    ></canvas>
+  </mat-card>
+  <mat-card>
+    <h3>With test stats</h3>
+    <canvas
+      baseChart
+      [datasets]="nationalSummaryChartWithTestsData"
+      [labels]="historyLabels"
+      [options]="lineChartOptions"
+      [colors]="lineChartColors"
+      [legend]="lineChartLegend"
+      [chartType]="lineChartType"
+    ></canvas>
+  </mat-card>
+</div>
+
+<div class="card-row">
+  <mat-card>
+    <h3>Exponential comparison</h3>
+    <canvas
+      baseChart
+      [datasets]="nationalSummaryChartWithExponential"
+      [labels]="historyLabels"
+      [options]="lineChartOptions"
+      [colors]="lineChartColors"
+      [legend]="lineChartLegend"
+      [chartType]="lineChartType"
+    ></canvas>
+  </mat-card>
+  <mat-card>
+    <h3>Daily growth</h3>
+    <canvas
+      baseChart
+      [datasets]="nationalGrowthChartData"
+      [labels]="historyLabels"
+      [options]="lineChartOptions"
+      [colors]="lineChartColors"
+      [legend]="lineChartLegend"
+      [chartType]="lineChartType"
+    ></canvas>
+  </mat-card>
+</div>
+
+<footer>
+  <mat-slider min="0" [max]="results.length - 1" step="1" [value]="results.length - 1" (input)="updateDate($event)"></mat-slider>
+  <span>
+    {{ result.date | date }}
+  </span>
+</footer>
