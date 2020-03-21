@@ -19,7 +19,8 @@
 
 <div class="card-row">
   <mat-card>
-    <h3>Without test stats</h3>
+    <h3>Cases confirmed</h3>
+    <p>This shows the trend of total confirmed cases</p>
     <canvas
       baseChart
       [datasets]="nationalSummaryChartData"
@@ -31,7 +32,8 @@
     ></canvas>
   </mat-card>
   <mat-card>
-    <h3>With test stats</h3>
+    <h3>Confirmed vs. Tests</h3>
+    <p>This view compares confirmed cases against tests conducted</p>
     <canvas
       baseChart
       [datasets]="nationalSummaryChartWithTestsData"
@@ -47,6 +49,7 @@
 <div class="card-row">
   <mat-card>
     <h3>Exponential comparison</h3>
+    <p>This view compares actual growth against exponential growth</p>
     <canvas
       baseChart
       [datasets]="nationalSummaryChartWithExponential"
@@ -59,6 +62,7 @@
   </mat-card>
   <mat-card>
     <h3>Daily growth</h3>
+    <p>Growth compared to previous day's growth</p>
     <canvas
       baseChart
       [datasets]="nationalGrowthChartData"

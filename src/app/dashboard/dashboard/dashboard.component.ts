@@ -62,18 +62,12 @@ export class DashboardComponent implements OnInit {
     // Generate national summary with exponential chart data
     this.nationalSummaryChartWithExponential = [
       { data: this.results.map(result => result.confirmed), label: 'Confirmed' },
-      { data: this.results.map(result => result.confirmed - result.recovered - result.deaths), label: 'Active' },
-      { data: this.results.map(result => result.deaths), label: 'Deaths' },
-      { data: this.results.map(result => result.recovered), label: 'Recovered' },
       { data: exponentialConfirmed, label: 'Exponential' }
     ];
 
     // Generate national summary with tests conducted data
     this.nationalSummaryChartWithTestsData = [
       { data: this.results.map(result => result.confirmed), label: 'Confirmed' },
-      { data: this.results.map(result => result.confirmed - result.recovered - result.deaths), label: 'Active' },
-      { data: this.results.map(result => result.deaths), label: 'Deaths' },
-      { data: this.results.map(result => result.recovered), label: 'Recovered' },
       { data: this.results.map(result => result.testsConducted), label: 'Tests' }
     ];
 

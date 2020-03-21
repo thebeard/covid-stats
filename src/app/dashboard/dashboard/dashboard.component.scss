@@ -49,8 +49,16 @@ footer {
 }
 
 .mat-card {
-  width: 50%;
+  width: 100%;
   margin-bottom: 30px;
+  box-sizing: border-box;
+  p {
+    text-align: center;
+    font-size: 0.85rem;
+  }
+  @media screen and (min-width: 769px) {
+    width: 50%;
+  }
 }
 
 .mat-slider {
@@ -60,10 +68,16 @@ footer {
 
 .card-row {
   display: flex;
+  flex-wrap: wrap;
+  @media screen and (min-width: 769px) {
+    flex-wrap: nowrap;
+  }
   .mat-card {
-    width: calc(50% - 15px);
-    &:first-child {
-      margin-right: 30px;
+    @media screen and (min-width: 769px) {
+      width: calc(50% - 15px);
+      &:first-child {
+        margin-right: 30px;
+      }
     }
   }
 }
