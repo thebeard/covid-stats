@@ -8,13 +8,13 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
         <dt>Conducted</dt>
         <dd>{{ conducted }}</dd>
         <dt>Positive</dt>
-        <dd>{{ confirmed }}</dd>
+        <dd>{{ confirmed / conducted | percent }}</dd>
       </dl>
       <dl>
         <dt>Negative</dt>
-        <dd>{{ negative }}</dd>
-        <dt>% of population Active</dt>
-        <dd>{{ percPositivePopulation }}</dd>
+        <dd>{{ negative / conducted | percent }}</dd>
+        <dt>Population active</dt>
+        <dd>{{ percPositivePopulation | percent: '1.4' }}</dd>
       </dl>
     </div>
   `,
@@ -30,7 +30,7 @@ export class TestStatComponent {
     return this.conducted - this.confirmed;
   }
 
-  get percPositivePopulation(): string {
-    return (((this.confirmed - this.recovered) / this.population) * 100).toFixed(4);
+  get percPositivePopulation(): number {
+    return (this.confirmed - this.recovered) / this.population;
   }
 }
