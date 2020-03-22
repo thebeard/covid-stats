@@ -3,10 +3,12 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
 import { AppRoutingModule } from './app-routing.module';
+import { LayoutModule } from './modules/components/layout/layout.module';
 import { LoaderModule } from './modules/components/loader';
 import { SidebarModule } from './modules/components/sidebar/sidebar.module';
 
@@ -20,9 +22,11 @@ import { AppInitializer } from './app-initializer';
     BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,
+    LayoutModule,
+    LoaderModule,
+    MatIconModule,
     MatProgressBarModule,
     MatSidenavModule,
-    LoaderModule,
     SidebarModule
   ],
   providers: [

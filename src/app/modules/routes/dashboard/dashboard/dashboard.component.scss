@@ -16,11 +16,15 @@ footer {
   position: fixed;
   z-index: 2;
   bottom: 0;
-  left: 222px;
+  left: 0px;
   right: 0;
   padding: 0 15px 15px;
   background: #fff;
   box-shadow: 0 0 10px 2px rgba(1, 1, 1, 0.1);
+  transition: left 0.1s ease-in-out;
+  &.open {
+    left: 222px;
+  }
   span {
     display: block;
     margin-top: -10px;

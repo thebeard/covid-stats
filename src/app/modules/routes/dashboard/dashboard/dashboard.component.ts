@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
 import { MatSliderChange } from '@angular/material/slider';
+import { Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Label, Color } from 'ng2-charts';
+
+import { LayoutService } from '../../../components/layout/layout.service';
 
 import { DailyStatistic } from '../../../../interfaces/daily-statistic';
 
@@ -13,6 +16,7 @@ import { DailyStatistic } from '../../../../interfaces/daily-statistic';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  footerExpanded$: Observable<boolean>;
   historyLabels: Label[];
 
   readonly lineChartColors: Color[] = [{ borderColor: 'black', backgroundColor: 'rgba(255,0,0,0.3)' }];
@@ -31,7 +35,7 @@ export class DashboardComponent implements OnInit {
   resultIndex = 0;
   results: DailyStatistic[];
 
-  constructor(private Route: ActivatedRoute) {}
+  constructor(private Layout: LayoutService, private Route: ActivatedRoute) {}
 
   ngOnInit() {
     this.Route.data.subscribe(data => {
@@ -39,6 +43,8 @@ export class DashboardComponent implements OnInit {
       this.setResult(this.results.length - 1);
       this.initialiseCharts();
     });
+
+    this.footerExpanded$ = this.Layout.isDesktop$.pipe(switchMap(isDesktop => (!isDesktop ? of(false) : this.Layout.isOpen$)));
   }
 
   updateDate(change: MatSliderChange) {

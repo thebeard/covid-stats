@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
+import { MatDrawerMode } from '@angular/material/sidenav';
 
+import { LayoutService } from './modules/components/layout/layout.service';
 import { LoaderService } from './modules/components/loader';
 
 @Component({
   selector: 'app-root',
   template: `
     <mat-sidenav-container>
-      <mat-sidenav mode="side" [opened]="true">
+      <mat-sidenav [mode]="sideNavMode" [opened]="Layout.isOpen$ | async">
         <app-sidebar></app-sidebar>
       </mat-sidenav>
       <mat-sidenav-content>
@@ -16,6 +18,8 @@ import { LoaderService } from './modules/components/loader';
         </main>
       </mat-sidenav-content>
     </mat-sidenav-container>
+    <mat-icon (click)="Layout.toggleNav()" *ngIf="(Layout.isOpen$ | async) === false">menu</mat-icon>
+    <mat-icon (click)="Layout.toggleNav()" *ngIf="Layout.isOpen$ | async">menu_open</mat-icon>
   `,
   styles: [
     `
@@ -26,7 +30,6 @@ import { LoaderService } from './modules/components/loader';
         min-height: 100vh;
       }
       main {
-        max-width: 1300px;
         min-height: 100vh;
         margin: 0 auto;
         box-sizing: border-box;
@@ -42,9 +45,20 @@ import { LoaderService } from './modules/components/loader';
         position: fixed;
         height: 5px;
       }
+      .mat-icon {
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        z-index: 1;
+        cursor: pointer;
+      }
     `
   ]
 })
 export class AppComponent {
-  constructor(public Loader: LoaderService) {}
+  sideNavMode: MatDrawerMode;
+
+  constructor(public Layout: LayoutService, public Loader: LoaderService) {
+    this.Layout.isDesktop$.subscribe(isDesktop => (this.sideNavMode = isDesktop ? 'side' : 'over'));
+  }
 }
