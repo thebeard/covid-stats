@@ -4,23 +4,23 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: 'dashboard',
-    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+    loadChildren: () => import('./modules/routes/dashboard/dashboard.module').then(m => m.DashboardModule)
   },
   {
     path: 'resources',
-    loadChildren: () => import('./resources/resources.module').then(m => m.ResourcesModule)
+    loadChildren: () => import('./modules/routes/resources/resources.module').then(m => m.ResourcesModule)
   },
   {
     path: 'maps',
-    loadChildren: () => import('./maps/maps.module').then(m => m.MapsModule)
+    loadChildren: () => import('./modules/routes/maps/maps.module').then(m => m.MapsModule)
   },
   {
     path: 'testing',
-    loadChildren: () => import('./testing/testing.module').then(m => m.TestingModule)
+    loadChildren: () => import('./modules/routes/testing/testing.module').then(m => m.TestingModule)
   },
   {
     path: 'news',
-    loadChildren: () => import('./stories/stories.module').then(m => m.StoriesModule)
+    loadChildren: () => import('./modules/routes/stories/stories.module').then(m => m.StoriesModule)
   },
   {
     path: '',

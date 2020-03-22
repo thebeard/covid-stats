@@ -10,9 +10,9 @@ import { ChartsModule } from 'ng2-charts';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardService } from './dashboard.service';
+import { StatisticsModule } from '../../components/statistics/statistics.module';
 
-import { environment } from '../../environments/environment';
-import { StatisticsModule } from '../statistics/statistics.module';
+import { environment } from '../../../../environments/environment';
 
 @NgModule({
   declarations: [DashboardComponent],

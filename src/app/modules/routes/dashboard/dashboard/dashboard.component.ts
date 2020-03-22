@@ -6,10 +6,9 @@ import { MatSliderChange } from '@angular/material/slider';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Label, Color } from 'ng2-charts';
 
-import { DailyStatistic } from '../../interfaces/daily-statistic';
+import { DailyStatistic } from '../../../../interfaces/daily-statistic';
 
 @Component({
-  selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })

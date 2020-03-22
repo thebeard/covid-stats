@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { LoaderService } from './modules/components/loader';
+
 @Component({
   selector: 'app-root',
   template: `
@@ -8,6 +10,7 @@ import { Component } from '@angular/core';
         <app-sidebar></app-sidebar>
       </mat-sidenav>
       <mat-sidenav-content>
+        <mat-progress-bar *ngIf="Loader.routeLoader$ | async" mode="indeterminate"></mat-progress-bar>
         <main>
           <router-outlet></router-outlet>
         </main>
@@ -35,7 +38,13 @@ import { Component } from '@angular/core';
           padding: 15px 30px;
         }
       }
+      .mat-progress-bar {
+        position: fixed;
+        height: 5px;
+      }
     `
   ]
 })
-export class AppComponent {}
+export class AppComponent {
+  constructor(public Loader: LoaderService) {}
+}
