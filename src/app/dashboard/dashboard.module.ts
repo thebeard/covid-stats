@@ -12,6 +12,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardService } from './dashboard.service';
 
 import { environment } from '../../environments/environment';
+import { StatisticsModule } from '../statistics/statistics.module';
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -21,7 +22,8 @@ import { environment } from '../../environments/environment';
     ChartsModule,
     DashboardRoutingModule,
     MatCardModule,
-    MatSliderModule
+    MatSliderModule,
+    StatisticsModule
   ],
   providers: [DashboardService]
 })

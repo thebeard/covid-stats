@@ -3,8 +3,6 @@
   margin-bottom: 100px;
 }
 
-h1,
-h3,
 footer {
   text-align: center;
 }
@@ -18,7 +16,7 @@ footer {
   position: fixed;
   z-index: 2;
   bottom: 0;
-  left: 0;
+  left: 222px;
   right: 0;
   padding: 0 15px 15px;
   background: #fff;
@@ -30,28 +28,11 @@ footer {
   }
 }
 
-#summary {
-  margin: 0 auto 30px;
-  div {
-    display: flex;
-  }
-  dl {
-    flex-grow: 1;
-    dd {
-      font-size: 3rem;
-      margin: 0px 0 15px;
-    }
-    dd,
-    dt {
-      text-align: center;
-    }
-  }
-}
-
 .mat-card {
   width: 100%;
   margin-bottom: 30px;
   box-sizing: border-box;
+  text-align: center;
   p {
     text-align: center;
     font-size: 0.85rem;

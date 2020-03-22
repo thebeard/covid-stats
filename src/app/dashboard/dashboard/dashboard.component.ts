@@ -26,6 +26,8 @@ export class DashboardComponent implements OnInit {
   nationalSummaryChartWithTestsData: ChartDataSets[];
   nationalGrowthChartData: ChartDataSets[];
 
+  readonly population = 60000000;
+
   result: DailyStatistic;
   resultIndex = 0;
   results: DailyStatistic[];

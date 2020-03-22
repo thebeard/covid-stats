@@ -1,21 +1,34 @@
-<h1>South Africa</h1>
+<h1>Corona Virus Statistics</h1>
+<h2>South Africa</h2>
 
-<mat-card id="summary">
-  <div>
-    <dl>
-      <dt>Confirmed</dt>
-      <dd>{{ result.confirmed }}</dd>
-      <dt>Active</dt>
-      <dd>{{ result.confirmed - result.recovered - result.deaths }}</dd>
-    </dl>
-    <dl>
-      <dt>Deaths</dt>
-      <dd>{{ result.deaths }}</dd>
-      <dt>Recovered</dt>
-      <dd>{{ result.recovered }}</dd>
-    </dl>
-  </div>
-</mat-card>
+<div id="summary" class="card-row">
+  <mat-card class="stat-card">
+    <h3>Cases</h3>
+    <div>
+      <dl>
+        <dt>Confirmed</dt>
+        <dd>{{ result.confirmed }}</dd>
+        <dt>Active</dt>
+        <dd>{{ result.confirmed - result.recovered - result.deaths }}</dd>
+      </dl>
+      <dl>
+        <dt>Deaths</dt>
+        <dd>{{ result.deaths }}</dd>
+        <dt>Recovered</dt>
+        <dd>{{ result.recovered }}</dd>
+      </dl>
+    </div>
+  </mat-card>
+  <mat-card class="stat-card">
+    <h3>Tests</h3>
+    <app-test-stat
+      [conducted]="result.testsConducted"
+      [confirmed]="result.confirmed"
+      [population]="population"
+      [recovered]="result.recovered"
+    ></app-test-stat>
+  </mat-card>
+</div>
 
 <div class="card-row">
   <mat-card>
