@@ -7,9 +7,9 @@ import { switchMap } from 'rxjs/operators';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Label, Color } from 'ng2-charts';
 
-import { LayoutService } from '../../../components/layout/layout.service';
+import { LayoutService } from '../../../state/layout';
 
-import { DailyStatistic } from '../../../../interfaces/daily-statistic';
+import { DailyStatistic } from '../../../../interfaces';
 
 @Component({
   templateUrl: './dashboard.component.html',

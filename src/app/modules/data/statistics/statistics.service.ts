@@ -7,7 +7,7 @@ import { AppStoreService } from '../../../app-store.service';
 import { environment } from '../../../../environments/environment';
 
 @Injectable()
-export class DashboardService {
+export class StatisticsService {
   private readonly uri = environment.dailyStatsApi;
 
   constructor(private Http: HttpClient, private Store: AppStoreService) {}

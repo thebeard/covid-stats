@@ -8,4 +8,4 @@ import { TestStatComponent } from './test-stat/test-stat.component';
   imports: [CommonModule],
   exports: [TestStatComponent]
 })
-export class StatisticsModule {}
+export class StatisticsUIModule {}

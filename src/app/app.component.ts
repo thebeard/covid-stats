@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { MatDrawerMode } from '@angular/material/sidenav';
 
-import { LayoutService } from './modules/components/layout/layout.service';
-import { LoaderService } from './modules/components/loader';
+import { LayoutService } from './modules/state/layout';
+import { LoaderService } from './modules/state/loader';
 
 @Component({
   selector: 'app-root',

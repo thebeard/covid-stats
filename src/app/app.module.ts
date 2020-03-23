@@ -8,9 +8,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
 import { AppRoutingModule } from './app-routing.module';
-import { LayoutModule } from './modules/components/layout/layout.module';
-import { LoaderModule } from './modules/components/loader';
-import { SidebarModule } from './modules/components/sidebar/sidebar.module';
+import { LayoutModule } from './modules/state/layout';
+import { LoaderModule } from './modules/state/loader';
+import { SidebarModule } from './modules/ui/sidebar';
 
 import { AppComponent } from './app.component';
 import { AppInitializer } from './app-initializer';
