@@ -40,7 +40,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.Route.data.subscribe(data => {
       this.results = data.results;
-      this.Stats.setResult(this.results.length - 1);
       this.initialiseCharts();
     });
 

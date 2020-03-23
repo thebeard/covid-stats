@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { AppStoreService } from '../../../app-store.service';
@@ -17,6 +17,8 @@ export class StatisticsService {
   result$ = this.result.asObservable();
 
   private resultIndex: number;
+  private resultIndexAtStart: Subject<number> = new Subject();
+  resultIndexAtStart$ = this.resultIndexAtStart.asObservable();
 
   constructor(private Http: HttpClient, private Store: AppStoreService) {}
 
@@ -25,7 +27,10 @@ export class StatisticsService {
 
     if (stats) {
       if (!this.resultSet) {
-        this.setResult(stats.length - 1, stats);
+        const index = stats.length - 1;
+        this.setResult(index, stats);
+        this.resultIndexAtStart.next(index);
+        this.resultIndexAtStart.complete();
       }
       return Promise.resolve(stats);
     } else {
@@ -35,7 +40,10 @@ export class StatisticsService {
           tap(results => {
             this.Store.set({ stats: results });
             if (!this.resultSet) {
-              this.setResult(results.length - 1, results);
+              const index = results.length - 1;
+              this.setResult(index, results);
+              this.resultIndexAtStart.next(index);
+              this.resultIndexAtStart.complete();
             }
           })
         )

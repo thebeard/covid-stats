@@ -87,10 +87,3 @@
     ></canvas>
   </mat-card>
 </div>
-
-<footer [class.open]="footerExpanded$ | async">
-  <mat-slider min="0" [max]="results.length - 1" step="1" [value]="results.length - 1" (input)="updateDate($event)"></mat-slider>
-  <span>
-    {{ result.date | date }}
-  </span>
-</footer>
