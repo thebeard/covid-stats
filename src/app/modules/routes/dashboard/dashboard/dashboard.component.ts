@@ -8,6 +8,7 @@ import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Label, Color } from 'ng2-charts';
 
 import { LayoutService } from '../../../state/layout';
+import { StatisticsService } from '../../../data/statistics';
 
 import { DailyStatistic } from '../../../../interfaces';
 
@@ -32,23 +33,23 @@ export class DashboardComponent implements OnInit {
   readonly population = 60000000;
 
   result: DailyStatistic;
-  resultIndex = 0;
   results: DailyStatistic[];
 
-  constructor(private Layout: LayoutService, private Route: ActivatedRoute) {}
+  constructor(private Layout: LayoutService, private Route: ActivatedRoute, private Stats: StatisticsService) {}
 
   ngOnInit() {
     this.Route.data.subscribe(data => {
       this.results = data.results;
-      this.setResult(this.results.length - 1);
+      this.Stats.setResult(this.results.length - 1);
       this.initialiseCharts();
     });
 
+    this.Stats.result$.subscribe(result => (this.result = result));
     this.footerExpanded$ = this.Layout.isDesktop$.pipe(switchMap(isDesktop => (!isDesktop ? of(false) : this.Layout.isOpen$)));
   }
 
   updateDate(change: MatSliderChange) {
-    this.setResult(change.value);
+    this.Stats.setResult(change.value);
   }
 
   private initialiseCharts() {
@@ -100,10 +101,5 @@ export class DashboardComponent implements OnInit {
     } else {
       return +((result.confirmed / this.results[index - 1].confirmed - 1) * 100).toFixed(2);
     }
-  }
-
-  private setResult(index: number) {
-    this.resultIndex = index;
-    this.result = this.results[this.resultIndex];
   }
 }
