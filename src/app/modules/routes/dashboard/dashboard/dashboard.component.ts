@@ -55,7 +55,7 @@ export class DashboardComponent implements OnInit {
     // Configure national confirmed cases exponential dataset
     const exponentialConfirmed = [this.results[0].confirmed];
     for (let i = 1; i < this.results.length; i++) {
-      exponentialConfirmed.push(exponentialConfirmed[i - 1] * 2);
+      exponentialConfirmed.push(exponentialConfirmed[i - 1] * 1.36);
     }
 
     // Generate national summary chart data

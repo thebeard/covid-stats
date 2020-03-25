@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DashboardResolver } from './dashboard.resolver';
+import { StatisticsResolver } from './statistics.resolver';
 
-describe('DashboardResolver', () => {
-  let service: DashboardResolver;
+describe('StatisticsResolver', () => {
+  let service: StatisticsResolver;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(DashboardResolver);
+    service = TestBed.inject(StatisticsResolver);
   });
 
   it('should be created', () => {

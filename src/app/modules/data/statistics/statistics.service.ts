@@ -12,15 +12,34 @@ import { environment } from '../../../../environments/environment';
 @Injectable()
 export class StatisticsService {
   private readonly uri = environment.dailyStatsApi;
+  private resultIndex: number;
 
   private result = new BehaviorSubject(null);
   result$ = this.result.asObservable();
 
-  private resultIndex: number;
   private resultIndexAtStart: Subject<number> = new Subject();
   resultIndexAtStart$ = this.resultIndexAtStart.asObservable();
 
   constructor(private Http: HttpClient, private Store: AppStoreService) {}
+
+  async getRadiusFactor(states: string[], idealRadius: number): Promise<number> {
+    const statistics = await this.getResults();
+
+    // Reduce to max in data set
+    const maxInDataSet = statistics.reduce((maxDataSet, statistic) => {
+      // Reduce to max in daily
+      const maxInDaily = states.reduce((maxDaily, stateCode) => {
+        const state: DailyStatistic = statistic[stateCode],
+          confirmed = state && state.confirmed ? state.confirmed : 0;
+
+        return confirmed > maxDaily ? confirmed : maxDaily;
+      }, 0);
+
+      return maxInDaily > maxDataSet ? maxInDaily : maxDataSet;
+    }, 0);
+
+    return idealRadius / maxInDataSet;
+  }
 
   getResults(): Promise<DailyStatistic[]> {
     const stats = this.Store.get('stats');

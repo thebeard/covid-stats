@@ -1,4 +1,11 @@
 <h1>Maps</h1>
 <h2>Regional Maps</h2>
 
-<p>Coming soon.</p>
+<ng-container [ngSwitch]="someStates">
+  <section *ngSwitchCase="true">
+    <app-map-container [states]="states" [statistic]="statistic" [radiusFactor]="radiusFactor"></app-map-container>
+  </section>
+  <section *ngSwitchCase="false">
+    <h3>No geolocation data available for this time period</h3>
+  </section>
+</ng-container>

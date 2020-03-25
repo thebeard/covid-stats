@@ -1,0 +1,11 @@
+<agm-map [latitude]="-30.816344" [longitude]="24.579043" [zoom]="5">
+  <ng-container *ngFor="let state of statesIterator">
+    <agm-circle
+      *ngIf="hasStat(state[0])"
+      [latitude]="state[1][0]"
+      [longitude]="state[1][1]"
+      [radius]="getRadius(state[0])"
+      [fillColor]="'red'"
+    ></agm-circle>
+  </ng-container>
+</agm-map>

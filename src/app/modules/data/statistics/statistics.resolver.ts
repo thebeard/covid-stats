@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
 
-import { StatisticsService } from '../../data/statistics';
+import { StatisticsService } from './statistics.service';
 import { LoaderService } from '../../state/loader';
 
 @Injectable()
-export class DashboardResolver implements Resolve<any> {
+export class StatisticsResolver implements Resolve<any> {
   constructor(private Dashboard: StatisticsService, public Loader: LoaderService) {}
 
   resolve(): Promise<any> {

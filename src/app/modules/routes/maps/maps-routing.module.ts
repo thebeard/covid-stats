@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { StatisticsResolver } from '../../data/statistics';
+
 import { MapsComponent } from './maps/maps.component';
 
 const routes: Routes = [
   {
     component: MapsComponent,
-    path: ''
+    path: '',
+    resolve: {
+      results: StatisticsResolver
+    }
   }
 ];
 
