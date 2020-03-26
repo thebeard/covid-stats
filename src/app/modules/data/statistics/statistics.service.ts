@@ -57,6 +57,9 @@ export class StatisticsService {
       return this.Http.get<DailyStatistic[]>(this.uri, { headers })
         .pipe(
           tap(results => {
+            results.sort((a, b) => {
+              return new Date(a.date).getTime() - new Date(b.date).getTime();
+            });
             this.Store.set({ stats: results });
             if (!this.resultSet) {
               const index = results.length - 1;

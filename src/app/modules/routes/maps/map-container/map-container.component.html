@@ -1,11 +1,23 @@
-<agm-map [latitude]="-30.816344" [longitude]="24.579043" [zoom]="5">
+<agm-map
+  mapType="terrain"
+  [latitude]="-30.816344"
+  [longitude]="24.579043"
+  [zoom]="5"
+  [disableDefaultUI]="true"
+  [disableDoubleClickZoom]="true"
+  [maxZoom]="7"
+  [minZoom]="4"
+  [styles]="mapStyles"
+>
   <ng-container *ngFor="let state of statesIterator">
-    <agm-circle
-      *ngIf="hasStat(state[0])"
-      [latitude]="state[1][0]"
-      [longitude]="state[1][1]"
-      [radius]="getRadius(state[0])"
-      [fillColor]="'red'"
-    ></agm-circle>
+    <ng-container *ngIf="hasStat(state[0])">
+      <agm-circle [latitude]="state[1][0]" [longitude]="state[1][1]" [radius]="getRadius(state[0])" [fillColor]="'red'"></agm-circle>
+      <agm-marker
+        [latitude]="state[1][0]"
+        [longitude]="state[1][1]"
+        [label]="getLabel(state[0])"
+        iconUrl="assets/transparent.png"
+      ></agm-marker>
+    </ng-container>
   </ng-container>
 </agm-map>

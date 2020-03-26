@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { DailyStatistic } from '../../../../interfaces';
+import { mapStyles } from './map-container.styles';
 
 @Component({
   selector: 'app-map-container',
@@ -12,9 +13,14 @@ export class MapContainerComponent {
   @Input() statistic: DailyStatistic;
   @Input() radiusFactor: number;
 
+  readonly mapStyles = mapStyles;
+
+  getLabel(province: string): string {
+    return `${this.getConfirmedByProvince(province)} (${province.toUpperCase()})`;
+  }
+
   getRadius(province: string): number {
-    // Direct statistic get here protected by hasStat in template
-    return this.statistic[province].confirmed * this.radiusFactor;
+    return this.getConfirmedByProvince(province) * this.radiusFactor;
   }
 
   hasStat(province: string): boolean {
@@ -26,5 +32,10 @@ export class MapContainerComponent {
       return [];
     }
     return Object.entries(this.states);
+  }
+
+  private getConfirmedByProvince(province: string): number {
+    // Direct statistic get here protected by hasStat in template
+    return this.statistic[province].confirmed;
   }
 }

@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
   nationalSummaryChartWithTestsData: ChartDataSets[];
   nationalGrowthChartData: ChartDataSets[];
 
-  readonly population = 60000000;
+  readonly population = 59109333;
 
   result: DailyStatistic;
   results: DailyStatistic[];
