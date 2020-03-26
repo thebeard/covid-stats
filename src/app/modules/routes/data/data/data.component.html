@@ -1,0 +1,51 @@
+<h1>Data</h1>
+<h2>Information about data source</h2>
+
+<button mat-flat-button color="primary" (click)="refreshData()" [disabled]="syncing">Refresh data</button>
+<p>
+  <small>
+    <em>Last synced at {{ syncTime }}</em>
+  </small>
+</p>
+
+<p>
+  The data set for the graphs and statistics is not being sourced from a data set aggregator website (e.g.
+  <a href="https://www.worldometers.info" target="_blank">worldometer</a>). We try to source data directly from the
+  <a href="http://www.nicd.ac.za" target="_blank">NICD</a> where possible, but look to a few other sources as well when information from the
+  NICD is latent, difficult to follow or incomplete.
+</p>
+
+<p>
+  The information is then captured in a database using a <a href="https://restdb.io/pricing/" target="_blank">Development (free)</a> profile
+  on <a href="https://restdb.io" target="_blank">restdb.io</a>. The data is refreshed when you close and re-open your browser or when you
+  hit the refresh button above. The time of the last sync is displayed below the resfresh button.
+</p>
+
+<p>
+  Please note there are currently unindicated plotted data nodes where available data sets are incomplete. We plan to make changes in the
+  future so that these are better indicated or alternatively omitted from the data set.
+</p>
+
+<h3>List of sources ordered by priority</h3>
+<ul>
+  <li>
+    <a href="https://t.co/mp6dJVUJVK?amp=1" target="_blank">NICD Website</a>
+  </li>
+  <li>
+    <a href="https://twitter.com/nicd_sa" target="_blank">NICD Twitter profile</a>
+  </li>
+  <li>
+    <a href="https://en.wikipedia.org/wiki/2020_coronavirus_pandemic_in_South_Africa" target="_blank">Wikipedia</a>
+  </li>
+  <li>
+    <a href="https://www.worldometers.info/coronavirus/#countries" target="_blank">worldometer</a>
+  </li>
+  <li>
+    <a href="https://datastudio.google.com/u/0/reporting/13H1dncMxH4xsQKa7JBJuSiFV5lJHd8uR/page/gYLJB" target="_blank"
+      >Covid-19 dashboard for South Africa​</a
+    >
+  </li>
+  <li>
+    <a href="https://twitter.com/CoronavirusRSA" target="_blank">#Covid19inSA Twitter profile</a>
+  </li>
+</ul>

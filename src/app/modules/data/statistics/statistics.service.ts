@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, interval } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { AppStoreService } from '../../../app-store.service';
@@ -20,7 +20,19 @@ export class StatisticsService {
   private resultIndexAtStart: Subject<number> = new Subject();
   resultIndexAtStart$ = this.resultIndexAtStart.asObservable();
 
-  constructor(private Http: HttpClient, private Store: AppStoreService) {}
+  private stale: Subject<boolean> = new Subject();
+  stale$ = this.stale.asObservable();
+
+  constructor(private Http: HttpClient, private Store: AppStoreService) {
+    interval(60000).subscribe(() => {
+      const difference = new Date().getTime() - this.Store.get('synced');
+      if (difference / 1000 / 60 / 60 > 4) {
+        this.stale.next(true);
+      } else {
+        this.stale.next(false);
+      }
+    });
+  }
 
   async getRadiusFactor(states: string[], idealRadius: number): Promise<number> {
     const statistics = await this.getResults();
@@ -41,7 +53,15 @@ export class StatisticsService {
     return idealRadius / maxInDataSet;
   }
 
-  getResults(): Promise<DailyStatistic[]> {
+  getResults(force = false): Promise<DailyStatistic[]> {
+    if (force) {
+      this.Store.clearAll();
+      this.resultIndex = undefined;
+      this.result.next(undefined);
+      this.resultIndexAtStart.next(undefined);
+      this.stale.next(false);
+    }
+
     const stats = this.Store.get('stats');
 
     if (stats) {
@@ -60,17 +80,26 @@ export class StatisticsService {
             results.sort((a, b) => {
               return new Date(a.date).getTime() - new Date(b.date).getTime();
             });
-            this.Store.set({ stats: results });
+            this.Store.set({
+              stats: results,
+              synced: new Date().getTime()
+            });
             if (!this.resultSet) {
               const index = results.length - 1;
               this.setResult(index, results);
               this.resultIndexAtStart.next(index);
               this.resultIndexAtStart.complete();
+              this.stale.next(false);
             }
           })
         )
         .toPromise() as Promise<any>;
     }
+  }
+
+  getSyncTime(): string {
+    const date = new Date(this.Store.get('synced'));
+    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
   }
 
   setResult(index: number, results?: DailyStatistic[]) {

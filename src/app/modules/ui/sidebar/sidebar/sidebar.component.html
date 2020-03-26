@@ -17,6 +17,17 @@
     <li>
       <a (click)="toggleNav()" routerLink="news">"Good news" stories</a>
     </li>
+    <li>
+      <a (click)="toggleNav()" routerLink="about">About</a>
+    </li>
+    <li>
+      <a (click)="toggleNav()" routerLink="data">
+        Data
+        <mat-chip-list *ngIf="Stats.stale$ | async">
+          <mat-chip color="accent" selected>Stale</mat-chip>
+        </mat-chip-list>
+      </a>
+    </li>
   </ul>
 </nav>
 <aside>

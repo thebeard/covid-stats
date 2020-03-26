@@ -12,8 +12,13 @@ export class AppStoreService {
     this.store = JSON.parse(sessionStorage.getItem(this.storeKey)) || {};
   }
 
+  clearAll() {
+    sessionStorage.removeItem(this.storeKey);
+    this.store = undefined;
+  }
+
   get(key: string): any {
-    return this.store[key];
+    return this.store ? this.store[key] : undefined;
   }
 
   set(keyValuePairs: Params) {

@@ -15,12 +15,20 @@ const routes: Routes = [
     loadChildren: () => import('./modules/routes/maps/maps.module').then(m => m.MapsModule)
   },
   {
+    path: 'about',
+    loadChildren: () => import('./modules/routes/about/about.module').then(m => m.AboutModule)
+  },
+  {
     path: 'testing',
     loadChildren: () => import('./modules/routes/testing/testing.module').then(m => m.TestingModule)
   },
   {
     path: 'news',
     loadChildren: () => import('./modules/routes/stories/stories.module').then(m => m.StoriesModule)
+  },
+  {
+    path: 'data',
+    loadChildren: () => import('./modules/routes/data/data.module').then(m => m.DataModule)
   },
   {
     path: '',

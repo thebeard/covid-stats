@@ -3,7 +3,7 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 @Component({
   selector: 'app-test-stat',
   template: `
-    <div>
+    <div *ngIf="!!conducted; else noStats">
       <dl>
         <dt>Conducted</dt>
         <dd>{{ conducted }}</dd>
@@ -17,6 +17,9 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
         <dd>{{ percPositivePopulation | percent: '1.4' }}</dd>
       </dl>
     </div>
+    <ng-template #noStats>
+      <p>Insufficient information available to display statistics for this date range.</p>
+    </ng-template>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
