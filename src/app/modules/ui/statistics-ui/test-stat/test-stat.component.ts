@@ -14,7 +14,7 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
         <dt>Negative</dt>
         <dd>{{ negative / conducted | percent }}</dd>
         <dt>Population active</dt>
-        <dd>{{ percPositivePopulation | percent: '1.4' }}</dd>
+        <dd>{{ percPositivePopulation | percent: '1.3' }}</dd>
       </dl>
     </div>
     <ng-template #noStats>

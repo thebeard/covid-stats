@@ -22,6 +22,14 @@ section {
   }
 }
 
+.align-right {
+  text-align: right;
+}
+mat-label,
+.mat-select {
+  font-size: 0.85rem;
+}
+
 .card-row {
   display: flex;
   flex-wrap: wrap;

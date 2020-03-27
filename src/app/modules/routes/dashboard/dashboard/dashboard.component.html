@@ -39,7 +39,6 @@
       [datasets]="nationalSummaryChartData"
       [labels]="historyLabels"
       [options]="lineChartOptions"
-      [colors]="lineChartColors"
       [legend]="lineChartLegend"
       [chartType]="lineChartType"
     ></canvas>
@@ -52,7 +51,6 @@
       [datasets]="nationalSummaryChartWithTestsData"
       [labels]="historyLabels"
       [options]="lineChartOptions"
-      [colors]="lineChartColors"
       [legend]="lineChartLegend"
       [chartType]="lineChartType"
     ></canvas>
@@ -63,12 +61,19 @@
   <mat-card>
     <h3>Exponential comparison</h3>
     <p>This view compares actual growth against exponential growth</p>
+    <div class="align-right">
+      <mat-label>Calculate exponential on &nbsp;</mat-label>
+      <mat-select [(ngModel)]="calculateDay" (selectionChange)="calculateExponentialChart()">
+        <ng-container *ngFor="let option of results; let i = index">
+          <mat-option *ngIf="i > 0" [value]="i">Day {{ i + 1 }}</mat-option>
+        </ng-container>
+      </mat-select>
+    </div>
     <canvas
       baseChart
       [datasets]="nationalSummaryChartWithExponential"
       [labels]="historyLabels"
       [options]="lineChartOptions"
-      [colors]="lineChartColors"
       [legend]="lineChartLegend"
       [chartType]="lineChartType"
     ></canvas>
@@ -80,8 +85,7 @@
       baseChart
       [datasets]="nationalGrowthChartData"
       [labels]="historyLabels"
-      [options]="lineChartOptions"
-      [colors]="lineChartColors"
+      [options]="lineChartOptionsPercentage"
       [legend]="lineChartLegend"
       [chartType]="lineChartType"
     ></canvas>

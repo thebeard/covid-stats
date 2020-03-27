@@ -17,12 +17,39 @@ import { DailyStatistic } from '../../../../interfaces';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  calculateDay = 3;
   footerExpanded$: Observable<boolean>;
   historyLabels: Label[];
 
-  readonly lineChartColors: Color[] = [{ borderColor: 'black', backgroundColor: 'rgba(255,0,0,0.3)' }];
   readonly lineChartLegend = true;
-  readonly lineChartOptions: ChartOptions = { responsive: true };
+  readonly lineChartOptions: ChartOptions = {
+    responsive: true,
+    scales: {
+      xAxes: [
+        {
+          ticks: {
+            autoSkip: true,
+            maxTicksLimit: 6
+          }
+        }
+      ],
+      yAxes: [
+        {
+          ticks: {
+            autoSkip: true,
+            maxTicksLimit: 5
+          }
+        }
+      ]
+    }
+  };
+  readonly lineChartOptionsPercentage = Object.assign({}, this.lineChartOptions, {
+    tooltips: {
+      callbacks: {
+        label: node => `${node.value}%`
+      }
+    }
+  });
   readonly lineChartType = 'line';
 
   nationalSummaryChartData: ChartDataSets[];
@@ -47,16 +74,28 @@ export class DashboardComponent implements OnInit {
     this.footerExpanded$ = this.Layout.isDesktop$.pipe(switchMap(isDesktop => (!isDesktop ? of(false) : this.Layout.isOpen$)));
   }
 
+  calculateExponentialChart() {
+    const exponentialConfirmed = [this.results[0].confirmed],
+      division = this.results[this.calculateDay].confirmed / this.results[0].confirmed,
+      factor = 1 + Math.log(division) / this.calculateDay;
+
+    for (let i = 1; i < this.results.length; i++) {
+      exponentialConfirmed.push(Math.floor(exponentialConfirmed[i - 1] * factor));
+    }
+
+    // Generate national summary with exponential chart data
+    this.nationalSummaryChartWithExponential = [
+      { data: this.results.map(result => result.confirmed), label: 'Confirmed' },
+      { data: exponentialConfirmed, label: 'Exponential' }
+    ];
+  }
+
   updateDate(change: MatSliderChange) {
     this.Stats.setResult(change.value);
   }
 
   private initialiseCharts() {
-    // Configure national confirmed cases exponential dataset
-    const exponentialConfirmed = [this.results[0].confirmed];
-    for (let i = 1; i < this.results.length; i++) {
-      exponentialConfirmed.push(exponentialConfirmed[i - 1] * 1.36);
-    }
+    this.calculateExponentialChart();
 
     // Generate national summary chart data
     this.nationalSummaryChartData = [
@@ -64,12 +103,6 @@ export class DashboardComponent implements OnInit {
       { data: this.results.map(result => result.confirmed - result.recovered - result.deaths), label: 'Active' },
       { data: this.results.map(result => result.deaths), label: 'Deaths' },
       { data: this.results.map(result => result.recovered), label: 'Recovered' }
-    ];
-
-    // Generate national summary with exponential chart data
-    this.nationalSummaryChartWithExponential = [
-      { data: this.results.map(result => result.confirmed), label: 'Confirmed' },
-      { data: exponentialConfirmed, label: 'Exponential' }
     ];
 
     // Generate national summary with tests conducted data
@@ -82,7 +115,7 @@ export class DashboardComponent implements OnInit {
     this.nationalGrowthChartData = [
       {
         data: this.results.map(this.mapGrowthChart.bind(this)) as number[],
-        label: 'Daily growth'
+        label: 'Confirmed'
       }
     ];
     this.nationalGrowthChartData[0].data[0] = this.nationalGrowthChartData[0].data[1];
