@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { ChartDataSets, ChartOptions } from 'chart.js';
-import { Label, Color } from 'ng2-charts';
+import { Label } from 'ng2-charts';
 
 import { LayoutService } from '../../../state/layout';
 import { StatisticsService } from '../../../data/statistics';
@@ -17,9 +17,11 @@ import { DailyStatistic } from '../../../../interfaces';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  calculateDay = 3;
+  calculateDay = 4;
   footerExpanded$: Observable<boolean>;
   historyLabels: Label[];
+  projectAhead = 5;
+  projectedHistoryLabels: Label[];
 
   readonly lineChartLegend = true;
   readonly lineChartOptions: ChartOptions = {
@@ -75,19 +77,33 @@ export class DashboardComponent implements OnInit {
   }
 
   calculateExponentialChart() {
+    if (!this.projectAhead) {
+      return;
+    }
+
     const exponentialConfirmed = [this.results[0].confirmed],
       division = this.results[this.calculateDay].confirmed / this.results[0].confirmed,
       factor = 1 + Math.log(division) / this.calculateDay;
 
-    for (let i = 1; i < this.results.length; i++) {
+    for (let i = 1; i < this.results.length + this.projectAhead; i++) {
       exponentialConfirmed.push(Math.floor(exponentialConfirmed[i - 1] * factor));
     }
 
     // Generate national summary with exponential chart data
     this.nationalSummaryChartWithExponential = [
-      { data: this.results.map(result => result.confirmed), label: 'Confirmed' },
-      { data: exponentialConfirmed, label: 'Exponential' }
+      { data: [...this.results.map(result => result.confirmed), ...Array(this.projectAhead)], label: 'Confirmed' },
+      { data: exponentialConfirmed, label: 'Projection' }
     ];
+
+    const lastDate = new Date(this.results[this.results.length - 1].date),
+      projectedLabels = Array(this.projectAhead)
+        .fill(null)
+        .map(() => {
+          lastDate.setDate(lastDate.getDate() + 1);
+          return `${lastDate.getDate()}/${lastDate.getMonth() + 1}`;
+        });
+
+    this.projectedHistoryLabels = [...this.historyLabels, ...projectedLabels];
   }
 
   updateDate(change: MatSliderChange) {
@@ -95,8 +111,6 @@ export class DashboardComponent implements OnInit {
   }
 
   private initialiseCharts() {
-    this.calculateExponentialChart();
-
     // Generate national summary chart data
     this.nationalSummaryChartData = [
       { data: this.results.map(result => result.confirmed), label: 'Confirmed' },
@@ -125,6 +139,8 @@ export class DashboardComponent implements OnInit {
       const date = new Date(result.date);
       return `${date.getDate()}/${date.getMonth() + 1}`;
     });
+
+    this.calculateExponentialChart();
   }
 
   private mapGrowthChart(result: DailyStatistic, index: number): number {

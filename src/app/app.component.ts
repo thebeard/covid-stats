@@ -38,13 +38,14 @@ import { StatisticsService } from './modules/data/statistics';
       }
       mat-sidenav-content {
         min-height: 100vh;
+        padding-bottom: 54px;
       }
       main {
         min-height: 100vh;
         margin: 0 auto;
         box-sizing: border-box;
         background: #f2f3f4;
-        padding: 15px;
+        padding: 15px 15px 30px;
       }
       footer {
         position: fixed;
@@ -68,7 +69,7 @@ import { StatisticsService } from './modules/data/statistics';
       }
       @media screen and (min-width: 769px) {
         main {
-          padding: 15px 30px;
+          padding: 15px 30px 30px;
         }
       }
       .mat-progress-bar {

@@ -1,0 +1,28 @@
+<h2>Contact me</h2>
+<form [formGroup]="feedback">
+  <mat-form-field>
+    <mat-label>Email address</mat-label>
+    <input matInput placeholder="username@example.com" formControlName="email" required />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="John Smith" formControlName="name" required />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Subject</mat-label>
+    <input matInput [value]="subject" readonly />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Your message</mat-label>
+    <textarea matInput placeholder="Type your message here..." rows="4" formControlName="message" required></textarea>
+  </mat-form-field>
+
+  <p>
+    <mat-progress-spinner *ngIf="loading" color="primary" mode="indeterminate" [diameter]="30"></mat-progress-spinner>
+    <button mat-flat-button color="accent" mat-dialog-close>{{ sent ? 'Close' : 'Cancel' }}</button>
+    <button mat-flat-button color="primary" (click)="send()" [disabled]="!feedback.valid || loading">Send message</button>
+  </p>
+</form>

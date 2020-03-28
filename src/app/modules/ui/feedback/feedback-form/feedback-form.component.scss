@@ -1,0 +1,27 @@
+:host {
+  display: block;
+  width: calc(100vw - 30px);
+  max-width: 360px;
+  padding-bottom: 5px;
+}
+
+h2 {
+  margin-top: 10px;
+}
+
+p {
+  text-align: right;
+}
+
+button {
+  margin-left: 10px;
+}
+
+.mat-form-field {
+  display: block;
+}
+
+.mat-progress-spinner {
+  float: left;
+  margin-top: 3px;
+}

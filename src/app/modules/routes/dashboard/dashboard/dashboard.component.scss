@@ -1,8 +1,3 @@
-:host {
-  display: block;
-  margin-bottom: 100px;
-}
-
 section {
   width: 50%;
   margin: 0 auto;
@@ -44,4 +39,9 @@ mat-label,
       }
     }
   }
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
 }

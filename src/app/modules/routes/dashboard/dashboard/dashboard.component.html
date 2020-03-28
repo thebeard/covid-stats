@@ -59,20 +59,37 @@
 
 <div class="card-row">
   <mat-card>
-    <h3>Exponential comparison</h3>
-    <p>This view compares actual growth against exponential growth</p>
-    <div class="align-right">
-      <mat-label>Calculate exponential on &nbsp;</mat-label>
-      <mat-select [(ngModel)]="calculateDay" (selectionChange)="calculateExponentialChart()">
-        <ng-container *ngFor="let option of results; let i = index">
-          <mat-option *ngIf="i > 0" [value]="i">Day {{ i + 1 }}</mat-option>
-        </ng-container>
-      </mat-select>
+    <h3>Exponential spread</h3>
+    <p>This view compares projected cases against confirmed cases</p>
+
+    <div class="flex">
+      <div>
+        <mat-form-field>
+          <mat-label>Days to project ahead &nbsp;</mat-label>
+          <input
+            matInput
+            type="number"
+            min="1"
+            max="30"
+            [(ngModel)]="projectAhead"
+            (keyup)="calculateExponentialChart()"
+            (change)="calculateExponentialChart()"
+          />
+        </mat-form-field>
+      </div>
+      <div class="align-right">
+        <mat-label>Calculate projection on &nbsp;</mat-label>
+        <mat-select [(ngModel)]="calculateDay" (selectionChange)="calculateExponentialChart()">
+          <ng-container *ngFor="let option of results; let i = index">
+            <mat-option *ngIf="i > 0" [value]="i">Day {{ i + 1 }}</mat-option>
+          </ng-container>
+        </mat-select>
+      </div>
     </div>
     <canvas
       baseChart
       [datasets]="nationalSummaryChartWithExponential"
-      [labels]="historyLabels"
+      [labels]="projectedHistoryLabels"
       [options]="lineChartOptions"
       [legend]="lineChartLegend"
       [chartType]="lineChartType"
