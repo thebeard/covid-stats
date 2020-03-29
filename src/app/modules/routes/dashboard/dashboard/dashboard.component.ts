@@ -12,6 +12,8 @@ import { StatisticsService } from '../../../data/statistics';
 
 import { DailyStatistic } from '../../../../interfaces';
 
+import { environment } from '../../../../../environments/environment';
+
 @Component({
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
@@ -22,6 +24,7 @@ export class DashboardComponent implements OnInit {
   historyLabels: Label[];
   projectAhead = 5;
   projectedHistoryLabels: Label[];
+  showControls = environment.production ? false : true;
 
   readonly lineChartLegend = true;
   readonly lineChartOptions: ChartOptions = {
@@ -115,7 +118,7 @@ export class DashboardComponent implements OnInit {
     this.nationalSummaryChartData = [
       { data: this.results.map(result => result.confirmed), label: 'Confirmed' },
       { data: this.results.map(result => result.confirmed - result.recovered - result.deaths), label: 'Active' },
-      { data: this.results.map(result => result.deaths), label: 'Deaths' },
+      { data: this.results.map(result => result.deaths), label: 'Fatalities' },
       { data: this.results.map(result => result.recovered), label: 'Recovered' }
     ];
 

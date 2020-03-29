@@ -3,7 +3,8 @@
 
 <div id="summary" class="card-row">
   <mat-card class="stat-card">
-    <h3>Cases</h3>
+    <h3>National case status</h3>
+    <p>A breakdown of national Covid-19 cases</p>
     <div>
       <dl>
         <dt>Confirmed</dt>
@@ -12,7 +13,7 @@
         <dd>{{ result.confirmed - result.recovered - result.deaths }}</dd>
       </dl>
       <dl>
-        <dt>Deaths</dt>
+        <dt>Fatalities</dt>
         <dd>{{ result.deaths }}</dd>
         <dt>Recovered</dt>
         <dd>{{ result.recovered }}</dd>
@@ -20,7 +21,8 @@
     </div>
   </mat-card>
   <mat-card class="stat-card">
-    <h3>Tests</h3>
+    <h3>National testing</h3>
+    <p>A breakdown of national Covid-19 testing</p>
     <app-test-stat
       [conducted]="result.testsConducted"
       [confirmed]="result.confirmed"
@@ -32,8 +34,8 @@
 
 <div class="card-row">
   <mat-card>
-    <h3>Cases confirmed</h3>
-    <p>This shows the trend of total confirmed cases</p>
+    <h3>National cases history</h3>
+    <p>The history of total confirmed-, recoved- and active cases and fatalities</p>
     <canvas
       baseChart
       [datasets]="nationalSummaryChartData"
@@ -44,7 +46,7 @@
     ></canvas>
   </mat-card>
   <mat-card>
-    <h3>Confirmed vs. Tests</h3>
+    <h3>National confirmed cases vs. tests</h3>
     <p>This view compares confirmed cases against tests conducted</p>
     <canvas
       baseChart
@@ -60,9 +62,9 @@
 <div class="card-row">
   <mat-card>
     <h3>Exponential spread</h3>
-    <p>This view compares projected cases against confirmed cases</p>
+    <p>This view compares 5 day projection with confirmed cases</p>
 
-    <div class="flex">
+    <div *ngIf="showControls" class="flex">
       <div>
         <mat-form-field>
           <mat-label>Days to project ahead &nbsp;</mat-label>
@@ -96,8 +98,8 @@
     ></canvas>
   </mat-card>
   <mat-card>
-    <h3>Relative daily growth</h3>
-    <p>Growth compared to previous day's growth</p>
+    <h3>Relative daily spread</h3>
+    <p>Day-to-day growth/spread factor</p>
     <canvas
       baseChart
       [datasets]="nationalGrowthChartData"

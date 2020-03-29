@@ -2,31 +2,16 @@
   <h3>Flatten the Curve</h3>
   <h2>South Africa</h2>
   <ul>
-    <li>
-      <a (click)="toggleNav()" routerLink="dashboard">Statistics</a>
-    </li>
-    <li>
-      <a (click)="toggleNav()" routerLink="maps">Maps</a>
-    </li>
-    <li>
-      <a (click)="toggleNav()" routerLink="resources">Coronavirus Info</a>
-    </li>
-    <li>
-      <a (click)="toggleNav()" routerLink="testing">Testing Centres</a>
-    </li>
-    <li>
-      <a (click)="toggleNav()" routerLink="news">"Good news" stories</a>
-    </li>
-    <li>
-      <a (click)="toggleNav()" routerLink="about">About</a>
-    </li>
-    <li>
-      <a (click)="toggleNav()" routerLink="data">
-        Data
-        <mat-chip-list *ngIf="Stats.stale$ | async">
-          <mat-chip color="accent" selected>Stale</mat-chip>
-        </mat-chip-list>
-      </a>
+    <li *ngFor="let item of items">
+      <ng-container [ngSwitch]="item.type">
+        <a (click)="toggleNav()" routerLink="data" *ngSwitchCase="'data'">
+          Data
+          <mat-chip-list *ngIf="Stats.stale$ | async">
+            <mat-chip color="accent" selected>Stale</mat-chip>
+          </mat-chip-list>
+        </a>
+        <a (click)="toggleNav()" [routerLink]="item.route" *ngSwitchDefault>{{ item.label }}</a>
+      </ng-container>
     </li>
   </ul>
 </nav>

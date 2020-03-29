@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { LayoutService } from '../../../state/layout';
 import { StatisticsService } from '../../../data/statistics';
+import { NavItems, NavItem } from './sidebar.model';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,6 +12,7 @@ import { StatisticsService } from '../../../data/statistics';
 })
 export class SidebarComponent implements OnInit {
   isDesktop: boolean;
+  items: NavItem[] = NavItems.filter(item => (environment.production ? !item.dev : true));
 
   constructor(private Layout: LayoutService, public Stats: StatisticsService) {}
 
