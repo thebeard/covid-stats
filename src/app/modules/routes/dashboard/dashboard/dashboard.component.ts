@@ -19,7 +19,7 @@ import { environment } from '../../../../../environments/environment';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  calculateDay = 4;
+  calculateDay = 9;
   footerExpanded$: Observable<boolean>;
   historyLabels: Label[];
   projectAhead = 5;
