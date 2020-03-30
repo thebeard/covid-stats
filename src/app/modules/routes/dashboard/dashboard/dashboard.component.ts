@@ -131,7 +131,7 @@ export class DashboardComponent implements OnInit {
     // Generate national growth chart
     this.nationalGrowthChartData = [
       {
-        data: this.results.map(this.mapGrowthChart.bind(this)) as number[],
+        data: this.results.map(this.mapGrowthChart.bind(this, 'confirmed')) as number[],
         label: 'Confirmed'
       }
     ];
@@ -146,11 +146,11 @@ export class DashboardComponent implements OnInit {
     this.calculateExponentialChart();
   }
 
-  private mapGrowthChart(result: DailyStatistic, index: number): number {
+  private mapGrowthChart(key: string, result: DailyStatistic, index: number): number {
     if (index === 0) {
       return 0;
     } else {
-      return +((result.confirmed / this.results[index - 1].confirmed - 1) * 100).toFixed(2);
+      return +((result[key] / this.results[index - 1][key] - 1) * 100).toFixed(2);
     }
   }
 }

@@ -3,6 +3,12 @@ section {
   margin: 0 auto;
 }
 
+h3 {
+  mat-icon {
+    vertical-align: top;
+  }
+}
+
 .mat-card {
   width: 100%;
   margin-bottom: 30px;

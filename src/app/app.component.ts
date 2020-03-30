@@ -22,9 +22,11 @@ import { StatisticsService } from './modules/data/statistics';
         </main>
         <footer [class.open]="footerExpanded$ | async">
           <mat-slider min="0" [max]="sliderMax" step="1" [value]="resultIndex" (input)="updateDate($event)"></mat-slider>
+          <span> <strong>Timeline Control</strong><br /> </span>
           <span>
             {{ (Stats.result$ | async)?.date | date }}
           </span>
+          <mat-icon [matTooltip]="timeLineToolTip">info</mat-icon>
         </footer>
       </mat-sidenav-content>
     </mat-sidenav-container>
@@ -53,19 +55,30 @@ import { StatisticsService } from './modules/data/statistics';
         bottom: 0;
         left: 0px;
         right: 0;
-        padding: 0 15px 15px;
+        padding: 0 15px 10px;
         background: #fff;
         box-shadow: 0 0 10px 2px rgba(1, 1, 1, 0.1);
         transition: left 0.1s ease-in-out;
         text-align: center;
+      }
+      footer .mat-icon {
+        position: absolute;
+        bottom: 20px;
+        right: 15px;
       }
       footer.open {
         left: 222px;
       }
       footer span {
         display: block;
-        margin-top: -10px;
+      }
+      footer span:first-of-type {
+        margin-top: -16px;
+        font-size: 0.8rem;
+      }
+      footer span:last-of-type {
         font-weight: 300;
+        font-size: 0.7rem;
       }
       @media screen and (min-width: 769px) {
         main {
@@ -77,10 +90,13 @@ import { StatisticsService } from './modules/data/statistics';
         height: 5px;
       }
       .mat-slider {
+        padding-top: 0;
+        margin-top: -6px;
         width: 50%;
+        min-width: 216px;
         max-width: 550px;
       }
-      .mat-icon {
+      :host > .mat-icon {
         position: fixed;
         top: 15px;
         right: 15px;
@@ -93,6 +109,8 @@ import { StatisticsService } from './modules/data/statistics';
 export class AppComponent implements OnInit {
   footerExpanded$: Observable<boolean>;
   resultIndex: number;
+  // tslint:disable-next-line:max-line-length
+  timeLineToolTip = `This timeline control will recall history on the Statistic Cards and Maps. Coming soon: Also recall history on Graph Cards - currently all history is shown.`;
   sliderMax: number;
   sideNavMode: MatDrawerMode;
 

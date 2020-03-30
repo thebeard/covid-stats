@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { AppRoutingModule } from './app-routing.module';
 import { LayoutModule } from './modules/state/layout';
@@ -30,6 +31,7 @@ import { AppInitializer } from './app-initializer';
     MatProgressBarModule,
     MatSliderModule,
     MatSidenavModule,
+    MatTooltipModule,
     SidebarModule,
     StatisticsModule
   ],

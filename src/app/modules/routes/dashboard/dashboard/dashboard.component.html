@@ -1,9 +1,9 @@
-<h1>Coronavirus Statistics</h1>
+<h1>COVID-19 Statistics</h1>
 <h2>South Africa</h2>
 
 <div id="summary" class="card-row">
   <mat-card class="stat-card">
-    <h3>National case status</h3>
+    <h3>National Case Status</h3>
     <p>A breakdown of national Covid-19 cases</p>
     <div>
       <dl>
@@ -21,7 +21,7 @@
     </div>
   </mat-card>
   <mat-card class="stat-card">
-    <h3>National testing</h3>
+    <h3>National Testing</h3>
     <p>A breakdown of national Covid-19 testing</p>
     <app-test-stat
       [conducted]="result.testsConducted"
@@ -34,7 +34,7 @@
 
 <div class="card-row">
   <mat-card>
-    <h3>National cases history</h3>
+    <h3>National Cases History</h3>
     <p>The history of total confirmed-, recoved- and active cases and fatalities</p>
     <canvas
       baseChart
@@ -46,7 +46,7 @@
     ></canvas>
   </mat-card>
   <mat-card>
-    <h3>National confirmed cases vs. tests</h3>
+    <h3>National Confirmed Cases vs. Tests</h3>
     <p>This view compares confirmed cases against tests conducted</p>
     <canvas
       baseChart
@@ -61,8 +61,15 @@
 
 <div class="card-row">
   <mat-card>
-    <h3>Exponential spread</h3>
-    <p>This view compares 5 day projection with confirmed cases</p>
+    <h3>
+      National Exponential Projection
+      <mat-icon
+        *ngIf="!showControls"
+        matTooltip="This projection set was calculated with the first 5 days worth of data and projects 5 days ahead"
+        >info</mat-icon
+      >
+    </h3>
+    <p>This view compares a 5 day projection with confirmed cases</p>
 
     <div *ngIf="showControls" class="flex">
       <div>
@@ -98,8 +105,8 @@
     ></canvas>
   </mat-card>
   <mat-card>
-    <h3>Relative daily spread</h3>
-    <p>Day-to-day growth/spread factor</p>
+    <h3>National Relative Daily New Cases</h3>
+    <p>Day-to-day relative increase of confirmed cases</p>
     <canvas
       baseChart
       [datasets]="nationalGrowthChartData"
