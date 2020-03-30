@@ -3,6 +3,8 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -27,6 +29,8 @@ import { AppInitializer } from './app-initializer';
     HttpClientModule,
     LayoutModule,
     LoaderModule,
+    MatBottomSheetModule,
+    MatButtonModule,
     MatIconModule,
     MatProgressBarModule,
     MatSliderModule,

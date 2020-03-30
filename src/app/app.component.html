@@ -1,0 +1,36 @@
+<mat-sidenav-container>
+  <mat-sidenav [mode]="sideNavMode" [opened]="Layout.isOpen$ | async">
+    <app-sidebar></app-sidebar>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-progress-bar *ngIf="Loader.routeLoader$ | async" mode="indeterminate"></mat-progress-bar>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+    <footer [class.open]="footerExpanded$ | async">
+      <mat-slider min="0" [max]="sliderMax" step="1" [value]="resultIndex" (input)="updateDate($event)"></mat-slider>
+      <span> <strong>Timeline Control</strong><br /> </span>
+      <span>
+        {{ (Stats.result$ | async)?.date | date }}
+      </span>
+      <mat-icon [matTooltip]="timeLineToolTip">info</mat-icon>
+    </footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<mat-icon (click)="Layout.toggleNav()" *ngIf="(Layout.isOpen$ | async) === false">menu</mat-icon>
+<mat-icon (click)="Layout.toggleNav()" *ngIf="Layout.isOpen$ | async">menu_open</mat-icon>
+
+<ng-template #disclaimer>
+  <section id="disclaimer">
+    <p>
+      <strong><mat-icon>warning</mat-icon>Disclaimer</strong><br />
+      Please note this website is not provided as a service and is in no way affiliated with the NICD or with any branch of government. Data
+      has been collected and copied from various sources listed on the Data page - a process prone to error - and thus should not be used as
+      a reliable source of information. Please note that none of the statistics, graphs or maps have been created or checked by a
+      statistician and might contain erroneous data.
+    </p>
+    <button mat-flat-button color="primary" (click)="dismiss()">Dismiss</button>
+  </section>
+</ng-template>
