@@ -1,12 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { StoriesResolver } from '../../data/stories-data';
 import { StoriesComponent } from './stories/stories.component';
 
 const routes: Routes = [
   {
     component: StoriesComponent,
-    path: ''
+    path: '',
+    resolve: {
+      stories: StoriesResolver
+    }
   }
 ];
 

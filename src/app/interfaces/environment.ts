@@ -6,8 +6,8 @@ export interface Environment {
     project: string;
     workspace: string;
   };
-  dailyStatsApi?: string;
-  dailyStatsApiKey?: string;
+  api?: string;
+  apiKey?: string;
   googleApiKey?: string;
   production: boolean;
 }

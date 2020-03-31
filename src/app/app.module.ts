@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
@@ -19,6 +19,7 @@ import { StatisticsModule } from './modules/data/statistics';
 
 import { AppComponent } from './app.component';
 import { AppInitializer } from './app-initializer';
+import { AppInterceptor } from './app-interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -45,6 +46,11 @@ import { AppInitializer } from './app-initializer';
       useFactory: AppInitializer,
       multi: true,
       deps: [HttpClient]
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AppInterceptor,
+      multi: true
     }
   ],
   bootstrap: [AppComponent]

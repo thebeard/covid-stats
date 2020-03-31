@@ -2,20 +2,16 @@
 <h2>"Good News" stories</h2>
 
 <section>
-  <a href="https://www.newsweek.com/103-year-old-woman-survives-coronavirus-1492974" target="_blank">
+  <a *ngFor="let story of storie$ | async" [href]="story.link" target="_blank">
     <mat-card>
       <mat-card-header>
-        <mat-card-title>Eldest survivor</mat-card-title>
-        <mat-card-subtitle>18/3/20</mat-card-subtitle>
+        <mat-card-title>{{ story.title }}</mat-card-title>
+        <mat-card-subtitle>{{ story.date_published | date }}</mat-card-subtitle>
       </mat-card-header>
-      <img
-        mat-card-image
-        src="https://d.newsweek.com/en/full/1574758/iranian-couple.jpg?w=790&f=df59eec47c39a8d3540b4aa19f395dd1"
-        alt="Face-covered elderly"
-      />
+      <img mat-card-image [src]="story.img_url" [alt]="story.img_alt" />
       <mat-card-content>
         <p>
-          103 year old woman survives coronavirus
+          {{ story.description }}
         </p>
       </mat-card-content>
     </mat-card>

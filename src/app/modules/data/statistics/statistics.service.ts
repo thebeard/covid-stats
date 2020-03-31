@@ -11,7 +11,7 @@ import { environment } from '../../../../environments/environment';
 
 @Injectable()
 export class StatisticsService {
-  private readonly uri = environment.dailyStatsApi;
+  private readonly uri = `${environment.api}/daily-stats`;
   private resultIndex: number;
 
   private result = new BehaviorSubject(null);
@@ -73,8 +73,7 @@ export class StatisticsService {
       }
       return Promise.resolve(stats);
     } else {
-      const headers = new HttpHeaders({ 'x-apikey': environment.dailyStatsApiKey });
-      return this.Http.get<DailyStatistic[]>(this.uri, { headers })
+      return this.Http.get<DailyStatistic[]>(this.uri)
         .pipe(
           tap(results => {
             results.sort((a, b) => {

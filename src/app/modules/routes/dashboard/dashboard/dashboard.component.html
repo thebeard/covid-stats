@@ -35,7 +35,7 @@
 <div class="card-row">
   <mat-card>
     <h3>National Cases History</h3>
-    <p>The history of total confirmed-, recoved- and active cases and fatalities</p>
+    <p>The history of total confirmed-, recovered- and active cases and fatalities</p>
     <canvas
       baseChart
       [datasets]="nationalSummaryChartData"
@@ -65,7 +65,7 @@
       National Exponential Projection
       <mat-icon
         *ngIf="!showControls"
-        matTooltip="This projection set was calculated with the first 5 days worth of data and projects 5 days ahead"
+        matTooltip="This projection set was calculated with the first {{ calculateDay + 1 }} days worth of data and projects 5 days ahead"
         >info</mat-icon
       >
     </h3>
