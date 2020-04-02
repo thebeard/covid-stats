@@ -11,7 +11,7 @@ export const NavItems: NavItem[] = [
   { route: 'maps', label: 'Maps' },
   { route: 'resources', label: 'Coronavirus Info', dev: true },
   { route: 'testing', label: 'Testing Centres' },
-  { route: 'news', label: '"Good news" stories', dev: true },
+  { route: 'news', label: '"Good news" stories' },
   { route: 'about', label: 'About' },
   { route: 'data', label: 'Data' }
 ];
