@@ -47,7 +47,7 @@
   </mat-card>
   <mat-card>
     <h3>National Confirmed Cases vs. Tests</h3>
-    <p>This view compares confirmed cases against tests conducted</p>
+    <p>Confirmed cases in comparison to amount of tests conducted</p>
     <canvas
       baseChart
       [datasets]="nationalSummaryChartWithTestsData"
@@ -65,11 +65,11 @@
       National Exponential Projection
       <mat-icon
         *ngIf="!showControls"
-        matTooltip="This projection set was calculated with the first {{ calculateDay + 1 }} days worth of data and projects 5 days ahead"
+        matTooltip="This projection is refreshed each day when new stats are released. Data set used is from day 1 -to- last date of entry minus 13 days."
         >info</mat-icon
       >
     </h3>
-    <p>This view compares a 5 day projection with confirmed cases</p>
+    <p>Projecting a week ahead in comparison to actual amount of confirmed cases</p>
 
     <div *ngIf="showControls" class="flex">
       <div>

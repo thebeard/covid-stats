@@ -19,10 +19,10 @@ import { environment } from '../../../../../environments/environment';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  calculateDay = 9;
+  calculateDay: number;
   footerExpanded$: Observable<boolean>;
   historyLabels: Label[];
-  projectAhead = 5;
+  projectAhead = 7;
   projectedHistoryLabels: Label[];
   showControls = environment.production ? false : true;
 
@@ -72,6 +72,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.Route.data.subscribe(data => {
       this.results = data.results;
+      this.calculateDay = data.results.length - 14;
       this.initialiseCharts();
     });
 
