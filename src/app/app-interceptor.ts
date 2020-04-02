@@ -8,11 +8,13 @@ import { environment } from '../environments/environment';
 })
 export class AppInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    request = request.clone({
-      setHeaders: {
-        'x-apikey': `${environment.apiKey}`
-      }
-    });
+    if (request.url.includes('restdb.io')) {
+      request = request.clone({
+        setHeaders: {
+          'x-apikey': `${environment.apiKey}`
+        }
+      });
+    }
     return next.handle(request);
   }
 }
