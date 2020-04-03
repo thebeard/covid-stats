@@ -9,6 +9,15 @@ section {
   flex-wrap: wrap;
 }
 
+p {
+  &:first-of-type {
+    margin-top: 40px;
+  }
+  &:last-of-type {
+    margin-bottom: 40px;
+  }
+}
+
 .mat-card {
   max-width: 320px;
   margin: 0 15px 30px;
