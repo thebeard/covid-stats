@@ -51,8 +51,8 @@ export class StatisticCardComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     const { record, card } = changes;
-    if (record && record.currentValue && card && card.currentValue) {
-      const transformer = new card.currentValue();
+    if (record && record.currentValue && this.card) {
+      const transformer = new this.card();
       this.statistics = transformer.getStatistics(record.currentValue);
     }
   }
