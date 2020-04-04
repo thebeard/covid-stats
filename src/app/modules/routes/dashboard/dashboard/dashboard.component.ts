@@ -9,6 +9,7 @@ import { Label } from 'ng2-charts';
 import { LayoutService } from '../../../../services';
 import { RecordsService } from '../../../records';
 import { Record } from '../../../../interfaces';
+import { StatusCard, TestCard } from '../../../ui/statistics';
 import { environment } from '../../../../../environments/environment';
 
 @Component({
@@ -17,6 +18,8 @@ import { environment } from '../../../../../environments/environment';
 })
 export class DashboardComponent implements OnInit {
   calculateDay: number;
+  statusCard = StatusCard;
+  testCard = TestCard;
   footerExpanded$: Observable<boolean>;
   historyLabels: Label[];
   projectAhead = 7;
@@ -58,8 +61,6 @@ export class DashboardComponent implements OnInit {
   nationalSummaryChartWithExponential: ChartDataSets[];
   nationalSummaryChartWithTestsData: ChartDataSets[];
   nationalGrowthChartData: ChartDataSets[];
-
-  readonly population = 59109333;
 
   record: Record;
   records: Record[];

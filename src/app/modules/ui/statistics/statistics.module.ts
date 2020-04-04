@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
 
-import { TestStatComponent } from './test-stat/test-stat.component';
+import { StatisticCardComponent } from './statistic-card/statistic-card.component';
 
 @NgModule({
-  declarations: [TestStatComponent],
-  imports: [CommonModule],
-  exports: [TestStatComponent],
+  declarations: [StatisticCardComponent],
+  imports: [CommonModule, MatCardModule],
+  exports: [StatisticCardComponent],
 })
 export class StatisticsModule {}

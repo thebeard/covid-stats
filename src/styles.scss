@@ -23,23 +23,6 @@ a {
   color: #3f51b5;
 }
 
-.stat-card {
-  div {
-    display: flex;
-  }
-  dl {
-    flex-grow: 1;
-    dd {
-      font-size: 2.4rem;
-      margin: 0px 0 15px;
-    }
-    dd,
-    dt {
-      text-align: center;
-    }
-  }
-}
-
 .mat-card-image {
   height: 240px;
   object-fit: cover;

@@ -9,5 +9,6 @@ export interface Environment {
   api?: string;
   apiKey?: string;
   googleApiKey?: string;
+  population?: number;
   production: boolean;
 }

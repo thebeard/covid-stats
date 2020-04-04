@@ -2,34 +2,15 @@
 <h2>South Africa</h2>
 
 <div id="summary" class="card-row">
-  <mat-card class="stat-card">
-    <h3>National Case Status</h3>
-    <p>A breakdown of national Covid-19 cases</p>
-    <div>
-      <dl>
-        <dt>Confirmed</dt>
-        <dd>{{ record.confirmed }}</dd>
-        <dt>Active</dt>
-        <dd>{{ record.confirmed - record.recovered - record.deaths }}</dd>
-      </dl>
-      <dl>
-        <dt>Fatalities</dt>
-        <dd>{{ record.deaths }}</dd>
-        <dt>Recovered</dt>
-        <dd>{{ record.recovered }}</dd>
-      </dl>
-    </div>
-  </mat-card>
-  <mat-card class="stat-card">
-    <h3>National Testing</h3>
-    <p>A breakdown of national Covid-19 testing</p>
-    <app-test-stat
-      [conducted]="record.tests"
-      [confirmed]="record.confirmed"
-      [population]="population"
-      [recovered]="record.recovered"
-    ></app-test-stat>
-  </mat-card>
+  <app-statistic-card
+    [card]="statusCard"
+    description="A breakdown of national Covid-19 cases"
+    [record]="record"
+    title="National Case Status"
+  >
+  </app-statistic-card>
+  <app-statistic-card [card]="testCard" description="A breakdown of national Covid-19 testing" [record]="record" title="National Testing">
+  </app-statistic-card>
 </div>
 
 <div class="card-row">

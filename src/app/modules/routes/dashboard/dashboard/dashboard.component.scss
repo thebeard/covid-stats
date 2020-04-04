@@ -9,6 +9,7 @@ h3 {
   }
 }
 
+app-statistic-card,
 .mat-card {
   width: 100%;
   margin-bottom: 30px;
@@ -26,10 +27,6 @@ h3 {
 .align-right {
   text-align: right;
 }
-mat-label,
-.mat-select {
-  font-size: 0.85rem;
-}
 
 .card-row {
   display: flex;
@@ -37,6 +34,7 @@ mat-label,
   @media screen and (min-width: 769px) {
     flex-wrap: nowrap;
   }
+  app-statistic-card,
   .mat-card {
     @media screen and (min-width: 769px) {
       width: calc(50% - 15px);
@@ -50,4 +48,9 @@ mat-label,
 .flex {
   display: flex;
   justify-content: space-between;
+}
+
+mat-label,
+.mat-select {
+  font-size: 0.85rem;
 }
