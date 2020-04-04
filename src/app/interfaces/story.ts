@@ -1,8 +1,5 @@
-export interface Story {
+import { Hyperlink } from './hyperlink';
+
+export interface Story extends Hyperlink {
   date_published: string;
-  description: string;
-  img_alt: string;
-  img_url: string;
-  link: string;
-  title: string;
 }

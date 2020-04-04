@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { StatisticsResolver } from '../../data/statistics';
-
+import { RecordsResolver } from '../../records';
 import { MapsComponent } from './maps/maps.component';
 
 const routes: Routes = [
@@ -10,13 +9,13 @@ const routes: Routes = [
     component: MapsComponent,
     path: '',
     resolve: {
-      results: StatisticsResolver
-    }
-  }
+      records: RecordsResolver,
+    },
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class MapsRoutingModule {}

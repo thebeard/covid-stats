@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { InfoResolver } from '../../data/info-data';
+
+import { ResourcesResolver } from './resources.resolver';
 import { ResourcesComponent } from './resources/resources.component';
 
 const routes: Routes = [
@@ -8,13 +9,13 @@ const routes: Routes = [
     component: ResourcesComponent,
     path: '',
     resolve: {
-      resources: InfoResolver
-    }
-  }
+      resources: ResourcesResolver,
+    },
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class ResourcesRoutingModule {}

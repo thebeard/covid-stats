@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { StatisticsResolver } from '../../data/statistics';
+import { RecordsResolver } from '../../records';
 import { DataComponent } from './data/data.component';
 
 const routes: Routes = [
@@ -9,13 +9,13 @@ const routes: Routes = [
     component: DataComponent,
     path: '',
     resolve: {
-      statistics: StatisticsResolver
-    }
-  }
+      records: RecordsResolver,
+    },
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class DataRoutingModule {}

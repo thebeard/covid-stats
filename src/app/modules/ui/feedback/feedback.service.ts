@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
 import { environment } from '../../../../environments/environment';
 
 @Injectable()
@@ -19,7 +20,7 @@ export class FeedbackService {
         assignee,
         followers: [assignee],
         projects: [project],
-        workspace
+        workspace,
       };
 
     return this.Http.post<void>(`${apiUrl}/tasks`, { data }, { headers }).toPromise();

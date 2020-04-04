@@ -1,9 +1,10 @@
 import { Directive, HostBinding, HostListener, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+
 import { FeedbackFormComponent } from './feedback-form/feedback-form.component';
 
 @Directive({
-  selector: '[appFeedbackForm]'
+  selector: '[appFeedbackForm]',
 })
 export class FeedbackFormDirective {
   @Input() subject = 'General Feedback';
@@ -11,8 +12,8 @@ export class FeedbackFormDirective {
   @HostListener('click') click() {
     this.Dialog.open(FeedbackFormComponent, {
       data: {
-        subject: this.subject
-      }
+        subject: this.subject,
+      },
     });
   }
 

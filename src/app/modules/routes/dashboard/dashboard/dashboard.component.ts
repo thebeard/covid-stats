@@ -3,20 +3,17 @@ import { ActivatedRoute } from '@angular/router';
 import { MatSliderChange } from '@angular/material/slider';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Label } from 'ng2-charts';
 
-import { LayoutService } from '../../../state/layout';
-import { StatisticsService } from '../../../data/statistics';
-
-import { DailyStatistic } from '../../../../interfaces';
-
+import { LayoutService } from '../../../../services';
+import { RecordsService } from '../../../records';
+import { Record } from '../../../../interfaces';
 import { environment } from '../../../../../environments/environment';
 
 @Component({
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
   calculateDay: number;
@@ -34,26 +31,26 @@ export class DashboardComponent implements OnInit {
         {
           ticks: {
             autoSkip: true,
-            maxTicksLimit: 6
-          }
-        }
+            maxTicksLimit: 6,
+          },
+        },
       ],
       yAxes: [
         {
           ticks: {
             autoSkip: true,
-            maxTicksLimit: 5
-          }
-        }
-      ]
-    }
+            maxTicksLimit: 5,
+          },
+        },
+      ],
+    },
   };
   readonly lineChartOptionsPercentage = Object.assign({}, this.lineChartOptions, {
     tooltips: {
       callbacks: {
-        label: node => `${node.value}%`
-      }
-    }
+        label: node => `${node.value}%`,
+      },
+    },
   });
   readonly lineChartType = 'line';
 
@@ -64,19 +61,19 @@ export class DashboardComponent implements OnInit {
 
   readonly population = 59109333;
 
-  result: DailyStatistic;
-  results: DailyStatistic[];
+  record: Record;
+  records: Record[];
 
-  constructor(private Layout: LayoutService, private Route: ActivatedRoute, private Stats: StatisticsService) {}
+  constructor(private Layout: LayoutService, private Route: ActivatedRoute, private Stats: RecordsService) {}
 
   ngOnInit() {
     this.Route.data.subscribe(data => {
-      this.results = data.results;
-      this.calculateDay = data.results.length - 14;
+      this.records = data.records;
+      this.calculateDay = this.records.length - 14;
       this.initialiseCharts();
     });
 
-    this.Stats.result$.subscribe(result => (this.result = result));
+    this.Stats.record$.subscribe(record => (this.record = record));
     this.footerExpanded$ = this.Layout.isDesktop$.pipe(switchMap(isDesktop => (!isDesktop ? of(false) : this.Layout.isOpen$)));
   }
 
@@ -85,21 +82,21 @@ export class DashboardComponent implements OnInit {
       return;
     }
 
-    const exponentialConfirmed = [this.results[0].confirmed],
-      division = this.results[this.calculateDay].confirmed / this.results[0].confirmed,
+    const exponentialConfirmed = [this.records[0].confirmed],
+      division = this.records[this.calculateDay].confirmed / this.records[0].confirmed,
       factor = 1 + Math.log(division) / this.calculateDay;
 
-    for (let i = 1; i < this.results.length + this.projectAhead; i++) {
+    for (let i = 1; i < this.records.length + this.projectAhead; i++) {
       exponentialConfirmed.push(Math.floor(exponentialConfirmed[i - 1] * factor));
     }
 
     // Generate national summary with exponential chart data
     this.nationalSummaryChartWithExponential = [
-      { data: [...this.results.map(result => result.confirmed), ...Array(this.projectAhead)], label: 'Confirmed' },
-      { data: exponentialConfirmed, label: 'Projection' }
+      { data: [...this.records.map(record => record.confirmed), ...Array(this.projectAhead)], label: 'Confirmed' },
+      { data: exponentialConfirmed, label: 'Projection' },
     ];
 
-    const lastDate = new Date(this.results[this.results.length - 1].date),
+    const lastDate = new Date(this.records[this.records.length - 1].date),
       projectedLabels = Array(this.projectAhead)
         .fill(null)
         .map(() => {
@@ -111,47 +108,47 @@ export class DashboardComponent implements OnInit {
   }
 
   updateDate(change: MatSliderChange) {
-    this.Stats.setResult(change.value);
+    this.Stats.setSelectedRecord(change.value);
   }
 
   private initialiseCharts() {
     // Generate national summary chart data
     this.nationalSummaryChartData = [
-      { data: this.results.map(result => result.confirmed), label: 'Confirmed' },
-      { data: this.results.map(result => result.confirmed - result.recovered - result.deaths), label: 'Active' },
-      { data: this.results.map(result => result.deaths), label: 'Fatalities' },
-      { data: this.results.map(result => result.recovered), label: 'Recovered' }
+      { data: this.records.map(record => record.confirmed), label: 'Confirmed' },
+      { data: this.records.map(record => record.confirmed - record.recovered - record.deaths), label: 'Active' },
+      { data: this.records.map(record => record.deaths), label: 'Fatalities' },
+      { data: this.records.map(record => record.recovered), label: 'Recovered' },
     ];
 
     // Generate national summary with tests conducted data
     this.nationalSummaryChartWithTestsData = [
-      { data: this.results.map(result => result.confirmed), label: 'Confirmed' },
-      { data: this.results.map(result => result.testsConducted), label: 'Tests' }
+      { data: this.records.map(record => record.confirmed), label: 'Confirmed' },
+      { data: this.records.map(record => record.tests), label: 'Tests' },
     ];
 
     // Generate national growth chart
     this.nationalGrowthChartData = [
       {
-        data: this.results.map(this.mapGrowthChart.bind(this, 'confirmed')) as number[],
-        label: 'Confirmed'
-      }
+        data: this.records.map(this.mapGrowthChart.bind(this, 'confirmed')) as number[],
+        label: 'Confirmed',
+      },
     ];
     this.nationalGrowthChartData[0].data[0] = this.nationalGrowthChartData[0].data[1];
 
     // Generate labels for use in multiple charts
-    this.historyLabels = this.results.map(result => {
-      const date = new Date(result.date);
+    this.historyLabels = this.records.map(record => {
+      const date = new Date(record.date);
       return `${date.getDate()}/${date.getMonth() + 1}`;
     });
 
     this.calculateExponentialChart();
   }
 
-  private mapGrowthChart(key: string, result: DailyStatistic, index: number): number {
+  private mapGrowthChart(key: string, record: Record, index: number): number {
     if (index === 0) {
       return 0;
     } else {
-      return +((result[key] / this.results[index - 1][key] - 1) * 100).toFixed(2);
+      return +((record[key] / this.records[index - 1][key] - 1) * 100).toFixed(2);
     }
   }
 }

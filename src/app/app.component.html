@@ -9,10 +9,10 @@
       <router-outlet></router-outlet>
     </main>
     <footer [class.open]="footerExpanded$ | async">
-      <mat-slider min="0" [max]="sliderMax" step="1" [value]="resultIndex" (input)="updateDate($event)"></mat-slider>
+      <mat-slider min="0" [max]="sliderMax" step="1" [value]="recordIndex" (input)="updateDate($event)"></mat-slider>
       <span> <strong>Timeline Control</strong><br /> </span>
       <span>
-        {{ (Stats.result$ | async)?.date | date }}
+        {{ (Records.record$ | async)?.date | date }}
       </span>
       <mat-icon [matTooltip]="timeLineToolTip">info</mat-icon>
     </footer>

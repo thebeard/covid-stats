@@ -1,16 +1,25 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { DailyStatistic } from '../../../../interfaces';
+
+import { Record } from '../../../../interfaces';
 import { mapStyles } from './map-container.styles';
 
 @Component({
   selector: 'app-map-container',
   templateUrl: './map-container.component.html',
-  styleUrls: ['./map-container.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styles: [
+    `
+      agm-map {
+        display: block;
+        margin-top: 40px;
+        height: calc(100vh - 300px);
+      }
+    `,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MapContainerComponent {
   @Input() states: { [index: string]: [number, number] };
-  @Input() statistic: DailyStatistic;
+  @Input() statistic: Record;
   @Input() radiusFactor: number;
 
   readonly mapStyles = mapStyles;

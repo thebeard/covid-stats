@@ -12,14 +12,12 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { AppRoutingModule } from './app-routing.module';
-import { LayoutModule } from './modules/state/layout';
-import { LoaderModule } from './modules/state/loader';
+import { RecordsModule } from './modules/records';
 import { SidebarModule } from './modules/ui/sidebar';
-import { StatisticsModule } from './modules/data/statistics';
 
 import { AppComponent } from './app.component';
-import { AppInitializer } from './app-initializer';
-import { AppInterceptor } from './app-interceptor';
+import { AppInitializer } from './app.initializer';
+import { AppInterceptor } from './app.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,8 +26,6 @@ import { AppInterceptor } from './app-interceptor';
     BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,
-    LayoutModule,
-    LoaderModule,
     MatBottomSheetModule,
     MatButtonModule,
     MatIconModule,
@@ -38,21 +34,21 @@ import { AppInterceptor } from './app-interceptor';
     MatSidenavModule,
     MatTooltipModule,
     SidebarModule,
-    StatisticsModule
+    RecordsModule,
   ],
   providers: [
     {
       provide: APP_INITIALIZER,
       useFactory: AppInitializer,
       multi: true,
-      deps: [HttpClient]
+      deps: [HttpClient],
     },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AppInterceptor,
-      multi: true
-    }
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { StoriesResolver } from '../../data/stories-data';
+import { StoriesResolver } from './stories.resolver';
 import { StoriesComponent } from './stories/stories.component';
 
 const routes: Routes = [

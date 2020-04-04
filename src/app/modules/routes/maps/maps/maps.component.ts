@@ -1,33 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { StatisticsService } from '../../../data/statistics';
-import { DailyStatistic } from '../../../../interfaces';
+
+import { RecordsService } from '../../../records';
+import { Record } from '../../../../interfaces';
+import { states, States } from '../maps.model';
 
 @Component({
   templateUrl: './maps.component.html',
-  styleUrls: ['./maps.component.scss']
 })
 export class MapsComponent implements OnInit {
   private static readonly idealRadius = 300000;
-
-  readonly states = {
-    lp: [-23.506069, 29.538475],
-    mp: [-25.214639, 30.978874],
-    ec: [-32.13447, 26.627685],
-    fs: [-29.105316, 26.180624],
-    gp: [-26.136523, 28.151946],
-    kzn: [-29.667324, 31.027127],
-    nw: [-26.958978, 25.102772],
-    nc: [-29.739381, 21.253545],
-    wc: [-33.415906, 20.407637]
-  };
-
   radiusFactor = 0;
   someStates: boolean;
-  statistic: DailyStatistic;
+  readonly states: States = states;
+  statistic: Record;
 
-  constructor(private Stats: StatisticsService) {}
+  constructor(private Stats: RecordsService) {}
 
-  private determineSomeStates(statistic: DailyStatistic) {
+  private determineSomeStates(statistic: Record) {
     if (!statistic) {
       return false;
     }
@@ -35,7 +24,7 @@ export class MapsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.Stats.result$.subscribe(statistic => {
+    this.Stats.record$.subscribe(statistic => {
       this.statistic = statistic;
       this.someStates = this.determineSomeStates(statistic);
     });

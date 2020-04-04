@@ -8,15 +8,15 @@
     <div>
       <dl>
         <dt>Confirmed</dt>
-        <dd>{{ result.confirmed }}</dd>
+        <dd>{{ record.confirmed }}</dd>
         <dt>Active</dt>
-        <dd>{{ result.confirmed - result.recovered - result.deaths }}</dd>
+        <dd>{{ record.confirmed - record.recovered - record.deaths }}</dd>
       </dl>
       <dl>
         <dt>Fatalities</dt>
-        <dd>{{ result.deaths }}</dd>
+        <dd>{{ record.deaths }}</dd>
         <dt>Recovered</dt>
-        <dd>{{ result.recovered }}</dd>
+        <dd>{{ record.recovered }}</dd>
       </dl>
     </div>
   </mat-card>
@@ -24,10 +24,10 @@
     <h3>National Testing</h3>
     <p>A breakdown of national Covid-19 testing</p>
     <app-test-stat
-      [conducted]="result.testsConducted"
-      [confirmed]="result.confirmed"
+      [conducted]="record.tests"
+      [confirmed]="record.confirmed"
       [population]="population"
-      [recovered]="result.recovered"
+      [recovered]="record.recovered"
     ></app-test-stat>
   </mat-card>
 </div>
@@ -89,7 +89,7 @@
       <div class="align-right">
         <mat-label>Calculate projection on &nbsp;</mat-label>
         <mat-select [(ngModel)]="calculateDay" (selectionChange)="calculateExponentialChart()">
-          <ng-container *ngFor="let option of results; let i = index">
+          <ng-container *ngFor="let option of records; let i = index">
             <mat-option *ngIf="i > 0" [value]="i">Day {{ i + 1 }}</mat-option>
           </ng-container>
         </mat-select>

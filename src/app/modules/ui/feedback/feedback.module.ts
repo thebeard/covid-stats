@@ -15,14 +15,14 @@ import { FeedbackFormDirective } from './feedback-form.directive';
   declarations: [FeedbackFormComponent, FeedbackFormDirective],
   imports: [
     CommonModule,
-    ReactiveFormsModule,
     MatButtonModule,
     MatDialogModule,
     MatInputModule,
     MatProgressSpinnerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    ReactiveFormsModule,
   ],
   providers: [FeedbackService],
-  exports: [FeedbackFormDirective]
+  exports: [FeedbackFormDirective],
 })
 export class FeedbackModule {}

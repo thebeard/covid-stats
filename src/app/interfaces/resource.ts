@@ -1,8 +1,5 @@
-export interface Resource {
-  description: string;
-  img_alt: string;
-  img_url: string;
-  link: string;
+import { Hyperlink } from './hyperlink';
+
+export interface Resource extends Hyperlink {
   publisher: string;
-  title: string;
 }
