@@ -1,0 +1,30 @@
+<mat-card>
+  <h3>{{ title }}</h3>
+  <p>{{ description }}</p>
+
+  <div class="flex">
+    <div>
+      <mat-form-field>
+        <mat-label>Days to project ahead &nbsp;</mat-label>
+        <input
+          matInput
+          type="number"
+          min="1"
+          max="30"
+          [(ngModel)]="projectAhead"
+          (keyup)="onProjectAheadUpdate()"
+          (change)="onProjectAheadUpdate()"
+        />
+      </mat-form-field>
+    </div>
+    <div class="align-right">
+      <mat-label>Calculate projection on &nbsp;</mat-label>
+      <mat-select [(ngModel)]="calculateDay" (selectionChange)="onCalculateDayUpdate()">
+        <ng-container *ngFor="let option of records; let i = index">
+          <mat-option *ngIf="i > 0" [value]="i">Day {{ i + 1 }}</mat-option>
+        </ng-container>
+      </mat-select>
+    </div>
+  </div>
+  <canvas baseChart [datasets]="data" [labels]="labels" [options]="resolvedOptions" [legend]="true" chartType="line"></canvas>
+</mat-card>

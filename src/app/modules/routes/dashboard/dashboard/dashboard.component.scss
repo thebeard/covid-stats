@@ -3,13 +3,9 @@ section {
   margin: 0 auto;
 }
 
-h3 {
-  mat-icon {
-    vertical-align: top;
-  }
-}
-
 app-statistic-card,
+app-line-chart,
+app-line-chart-advanced,
 .mat-card {
   width: 100%;
   margin-bottom: 30px;
@@ -24,10 +20,6 @@ app-statistic-card,
   }
 }
 
-.align-right {
-  text-align: right;
-}
-
 .card-row {
   display: flex;
   flex-wrap: wrap;
@@ -35,6 +27,8 @@ app-statistic-card,
     flex-wrap: nowrap;
   }
   app-statistic-card,
+  app-line-chart,
+  app-line-chart-advanced,
   .mat-card {
     @media screen and (min-width: 769px) {
       width: calc(50% - 15px);
@@ -43,14 +37,4 @@ app-statistic-card,
       }
     }
   }
-}
-
-.flex {
-  display: flex;
-  justify-content: space-between;
-}
-
-mat-label,
-.mat-select {
-  font-size: 0.85rem;
 }
