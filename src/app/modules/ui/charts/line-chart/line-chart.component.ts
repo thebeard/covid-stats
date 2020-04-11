@@ -5,6 +5,7 @@ import { Label } from 'ng2-charts';
 import { DEFAULT_LINE_CHART_OPTIONS } from './line-chart.model';
 import { Record } from '../../../../interfaces';
 import { BaseChart } from '../charts/base-chart';
+import { deepCopy, mergeOptions } from '../../../../app.functions';
 
 @Component({
   selector: 'app-line-chart',
@@ -38,7 +39,7 @@ export class LineChartComponent implements OnChanges {
     }
 
     if (options) {
-      this.resolvedOptions = { ...this.defaultOptions, ...options };
+      this.resolvedOptions = mergeOptions(deepCopy(this.defaultOptions), options);
     } else if (!this.resolvedOptions) {
       this.resolvedOptions = this.defaultOptions;
     }

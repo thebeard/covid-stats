@@ -19,6 +19,7 @@
     description="The history of total confirmed-, recovered- and active cases and fatalities"
     [records]="records"
     [chart]="historyChart"
+    [options]="{ scales: { yAxes: [{ stacked: true }] } }"
   ></app-line-chart>
   <app-line-chart
     title="National Confirmed Cases vs. Tests"
